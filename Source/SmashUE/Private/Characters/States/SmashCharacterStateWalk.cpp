@@ -4,6 +4,7 @@
 #include "Characters/States/SmashCharacterStateWalk.h"
 
 #include "Characters/SmashCharacter.h"
+#include "Characters/SmashCharacterSettings.h"
 #include "Characters/SmashCharacterStateMachine.h"
 
 ESmashCharacterStateID USmashCharacterStateWalk::GetStateID()
@@ -15,39 +16,23 @@ void USmashCharacterStateWalk::StateEnter(ESmashCharacterStateID PreviousStateID
 {
 	Super::StateEnter(PreviousStateID);
 
-	GEngine->AddOnScreenDebugMessage(
-		-1,
-		3.f,
-		FColor::Cyan,
-		TEXT("Enter StateWalk"));
+	Character->InputMoveXFastEvent.AddDynamic(this, &USmashCharacterStateWalk::OnInputMoveXFast);
 }
 
 void USmashCharacterStateWalk::StateExit(ESmashCharacterStateID NextStateID)
 {
 	Super::StateExit(NextStateID);
-	
-	GEngine->AddOnScreenDebugMessage(
-		-1,
-		3.f,
-		FColor::Red,
-		TEXT("Exit StateWalk"));
+
+	Character->InputMoveXFastEvent.RemoveDynamic(this, &USmashCharacterStateWalk::OnInputMoveXFast);
 }
 
 void USmashCharacterStateWalk::StateTick(float DeltaTime)
 {
 	Super::StateTick(DeltaTime);
+	const USmashCharacterSettings* CharacterSettings = GetDefault<USmashCharacterSettings>();
 
-	//FVector position = Character->GetActorLocation();
-	//position.X += WalkMaxSpeed*DeltaTime*Character->GetOrientX();
-	//Character->SetActorLocation(position);
 
-	GEngine->AddOnScreenDebugMessage(
-		-1,
-		.1f,
-		FColor::Green,
-		TEXT("Tick StateWalk"));
-
-	if(FMath::Abs(Character->GetInputMoveX()) < 0.1f)
+	if(FMath::Abs(Character->GetInputMoveX()) < CharacterSettings->InputMoveXThreshold)
 	{
 		StateMachine->ChangeState(ESmashCharacterStateID::Idle);
 	}
@@ -61,4 +46,9 @@ void USmashCharacterStateWalk::StateTick(float DeltaTime)
 UAnimMontage* USmashCharacterStateWalk::GetAnimationMontage()
 {
 	return WalkAnimation;
+}
+
+void USmashCharacterStateWalk::OnInputMoveXFast(float InputMoveX)
+{
+	StateMachine->ChangeState(ESmashCharacterStateID::Run);
 }

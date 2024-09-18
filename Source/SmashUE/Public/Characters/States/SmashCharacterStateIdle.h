@@ -18,6 +18,9 @@ public:
 	virtual void StateExit(ESmashCharacterStateID NextStateID) override;
 	virtual void StateTick(float DeltaTime) override;
 	virtual UAnimMontage* GetAnimationMontage() override;
+	
+	UFUNCTION()
+	void OnInputMoveXFast(float InputMoveX);
 
 	UPROPERTY(EditAnywhere)
 	UAnimMontage* IdleAnimation;
