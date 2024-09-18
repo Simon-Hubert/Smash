@@ -12,6 +12,7 @@ UCLASS()
 class SMASHUE_API ASmashCharacter : public ACharacter
 {
 	GENERATED_BODY()
+	
 #pragma region Unreal Default
 public:
 	// Sets default values for this character's properties
@@ -42,11 +43,14 @@ protected:
 #pragma endregion
 
 #pragma region StateMachine
+	
 public:
 	void CreateStateMachine();
 	void InitStateMachine();
+	
 protected:
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<USmashCharacterStateMachine> StateMachine;
+	
 #pragma endregion
 };
