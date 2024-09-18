@@ -3,6 +3,8 @@
 
 #include "Characters/States/SmashCharacterStateWalk.h"
 
+#include "Characters/SmashCharacter.h"
+
 ESmashCharacterStateID USmashCharacterStateWalk::GetStateID()
 {
 	return ESmashCharacterStateID::Walk;
@@ -33,6 +35,10 @@ void USmashCharacterStateWalk::StateExit(ESmashCharacterStateID NextStateID)
 void USmashCharacterStateWalk::StateTick(float DeltaTime)
 {
 	Super::StateTick(DeltaTime);
+
+	FVector position = Character->GetActorLocation();
+	position.X += WalkMaxSpeed*DeltaTime*Character->GetOrientX();
+	Character->SetActorLocation(position);
 
 	GEngine->AddOnScreenDebugMessage(
 		-1,
