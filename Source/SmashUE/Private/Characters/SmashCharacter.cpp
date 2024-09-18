@@ -26,6 +26,7 @@ void ASmashCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	RotateMeshUsingOrientX();
+	TickStateMachine(DeltaTime);
 }
 
 // Called to bind functionality to input
@@ -61,6 +62,12 @@ void ASmashCharacter::InitStateMachine()
 {
 	if(StateMachine == nullptr) return;
 	StateMachine->Init(this);
+}
+
+void ASmashCharacter::TickStateMachine(float DeltaTime) const
+{
+	if(StateMachine == nullptr) return;
+	StateMachine->Tick(DeltaTime);
 }
 
 

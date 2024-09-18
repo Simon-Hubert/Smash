@@ -19,6 +19,7 @@ class SMASHUE_API USmashCharacterStateMachine : public UObject
 
 public:
 	void Init(ASmashCharacter* InCharacter);
+	void Tick(float DeltaTime);
 	ASmashCharacter* GetCharacter() const;
 	
 	UFUNCTION(BlueprintCallable)
