@@ -3,6 +3,7 @@
 
 #include "SmashCharacterState.h"
 
+#include "Characters/SmashCharacter.h"
 #include "Characters/SmashCharacterStateID.h"
 #include "Characters/SmashCharacterStateMachine.h"
 
@@ -30,7 +31,7 @@ void USmashCharacterState::StateInit(USmashCharacterStateMachine* InStateMachine
 
 void USmashCharacterState::StateEnter(ESmashCharacterStateID PreviousStateID)
 {
-	
+	if(GetAnimationMontage() != nullptr) Character->PlayAnimMontage(GetAnimationMontage());
 }
 
 void USmashCharacterState::StateExit(ESmashCharacterStateID NextStateID)
@@ -40,4 +41,9 @@ void USmashCharacterState::StateExit(ESmashCharacterStateID NextStateID)
 
 void USmashCharacterState::StateTick(float DeltaTime)
 {
+}
+
+UAnimMontage* USmashCharacterState::GetAnimationMontage()
+{
+	return nullptr;
 }

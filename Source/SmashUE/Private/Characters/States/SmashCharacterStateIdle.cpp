@@ -42,3 +42,8 @@ void USmashCharacterStateIdle::StateTick(float DeltaTime)
 		FColor::Green,
 		TEXT("Tick StateIdle"));
 }
+
+UAnimMontage* USmashCharacterStateIdle::GetAnimationMontage()
+{
+	return IdleAnimation;
+}

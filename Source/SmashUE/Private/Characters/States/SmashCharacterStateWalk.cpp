@@ -40,3 +40,8 @@ void USmashCharacterStateWalk::StateTick(float DeltaTime)
 		FColor::Green,
 		TEXT("Tick StateWalk"));
 }
+
+UAnimMontage* USmashCharacterStateWalk::GetAnimationMontage()
+{
+	return WalkAnimation;
+}

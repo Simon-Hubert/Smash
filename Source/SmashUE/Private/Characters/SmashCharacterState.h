@@ -22,6 +22,7 @@ public:
 	virtual void StateEnter(ESmashCharacterStateID PreviousStateID);
 	virtual void StateExit(ESmashCharacterStateID NextStateID);
 	virtual void StateTick(float DeltaTime);
+	virtual UAnimMontage* GetAnimationMontage();
 
 protected:
 	UPROPERTY()
