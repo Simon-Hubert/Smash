@@ -4,7 +4,6 @@
 #include "Characters/States/SmashCharacterStateIdle.h"
 
 #include "Characters/SmashCharacter.h"
-#include "Characters/SmashCharacterSettings.h"
 #include "Characters/SmashCharacterStateID.h"
 #include "Characters/SmashCharacterStateMachine.h"
 #include "GameFramework/PawnMovementComponent.h"
@@ -35,8 +34,7 @@ void USmashCharacterStateIdle::StateExit(ESmashCharacterStateID NextStateID)
 void USmashCharacterStateIdle::StateTick(float DeltaTime)
 {
 	Super::StateTick(DeltaTime);
-	const USmashCharacterSettings* CharacterSettings = GetDefault<USmashCharacterSettings>();
-
+	
 	if(FMath::Abs(Character->GetInputMoveX()) > CharacterSettings->InputMoveXThreshold)
 	{
 		StateMachine->ChangeState(ESmashCharacterStateID::Walk);

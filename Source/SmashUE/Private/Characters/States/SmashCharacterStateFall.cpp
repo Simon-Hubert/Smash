@@ -5,6 +5,7 @@
 
 #include "Characters/SmashCharacter.h"
 #include "Characters/SmashCharacterStateMachine.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PawnMovementComponent.h"
 
 ESmashCharacterStateID USmashCharacterStateFall::GetStateID()
@@ -15,6 +16,8 @@ ESmashCharacterStateID USmashCharacterStateFall::GetStateID()
 void USmashCharacterStateFall::StateEnter(ESmashCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
+	Character->GetCharacterMovement()->AirControl = FallAirControl;
+	Character->GetCharacterMovement()->GravityScale = FallGravityScale;
 }
 
 void USmashCharacterStateFall::StateExit(ESmashCharacterStateID NextStateID)
@@ -30,6 +33,12 @@ void USmashCharacterStateFall::StateTick(float DeltaTime)
 	{
 		StateMachine->ChangeState(ESmashCharacterStateID::Idle);
 	}
+	if(FMath::Abs(Character->GetInputMoveX()) > CharacterSettings->InputMoveXThreshold)
+	{
+		Character->AddMovementInput(FVector::ForwardVector, Character->GetInputMoveX());
+	}
+
+	//TODO Add Fast Fall
 }
 
 UAnimMontage* USmashCharacterStateFall::GetAnimationMontage()
