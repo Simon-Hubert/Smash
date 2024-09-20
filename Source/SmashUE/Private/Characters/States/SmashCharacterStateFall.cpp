@@ -3,6 +3,10 @@
 
 #include "Characters/States/SmashCharacterStateFall.h"
 
+#include "Characters/SmashCharacter.h"
+#include "Characters/SmashCharacterStateMachine.h"
+#include "GameFramework/PawnMovementComponent.h"
+
 ESmashCharacterStateID USmashCharacterStateFall::GetStateID()
 {
 	return ESmashCharacterStateID::Fall;
@@ -21,6 +25,11 @@ void USmashCharacterStateFall::StateExit(ESmashCharacterStateID NextStateID)
 void USmashCharacterStateFall::StateTick(float DeltaTime)
 {
 	Super::StateTick(DeltaTime);
+	
+	if(Character->GetMovementComponent()->IsMovingOnGround())
+	{
+		StateMachine->ChangeState(ESmashCharacterStateID::Idle);
+	}
 }
 
 UAnimMontage* USmashCharacterStateFall::GetAnimationMontage()

@@ -14,11 +14,14 @@ class SMASHUE_API USmashCharacterStateRun : public USmashCharacterState
 	
 public:
 	virtual ESmashCharacterStateID GetStateID() override;
+	UFUNCTION()
 	virtual void StateEnter(ESmashCharacterStateID PreviousStateID) override;
 	virtual void StateExit(ESmashCharacterStateID NextStateID) override;
 	virtual void StateTick(float DeltaTime) override;
 	virtual UAnimMontage* GetAnimationMontage() override;
 
+	UFUNCTION()
+	void OnInputJump();
 	UPROPERTY(EditAnywhere)
 	UAnimMontage* RunAnimation;
 

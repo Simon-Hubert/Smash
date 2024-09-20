@@ -6,6 +6,7 @@
 #include "Characters/SmashCharacter.h"
 #include "Characters/SmashCharacterSettings.h"
 #include "Characters/SmashCharacterStateMachine.h"
+#include "GameFramework/PawnMovementComponent.h"
 
 
 ESmashCharacterStateID USmashCharacterStateRun::GetStateID()
@@ -16,11 +17,16 @@ ESmashCharacterStateID USmashCharacterStateRun::GetStateID()
 void USmashCharacterStateRun::StateEnter(ESmashCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
+
+	Character->InputJumpEvent.AddDynamic(this, &USmashCharacterStateRun::OnInputJump);
 }
 
 void USmashCharacterStateRun::StateExit(ESmashCharacterStateID NextStateID)
 {
 	Super::StateExit(NextStateID);
+
+	Character->InputJumpEvent.RemoveDynamic(this, &USmashCharacterStateRun::OnInputJump);
+
 }
 
 void USmashCharacterStateRun::StateTick(float DeltaTime)
@@ -37,10 +43,19 @@ void USmashCharacterStateRun::StateTick(float DeltaTime)
 		Character->SetOrientX(Character->GetInputMoveX());
 		Character->AddMovementInput(FVector::ForwardVector, Character->GetOrientX());
 	}
+	if(!Character->GetMovementComponent()->IsMovingOnGround())
+	{
+		StateMachine->ChangeState(ESmashCharacterStateID::Fall);
+	}
 }
 
 UAnimMontage* USmashCharacterStateRun::GetAnimationMontage()
 {
 	return RunAnimation;
+}
+
+void USmashCharacterStateRun::OnInputJump()
+{
+	StateMachine->ChangeState(ESmashCharacterStateID::Jump);
 }
 

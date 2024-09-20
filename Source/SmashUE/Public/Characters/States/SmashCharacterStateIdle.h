@@ -22,6 +22,9 @@ public:
 	UFUNCTION()
 	void OnInputMoveXFast(float InputMoveX);
 
+	UFUNCTION()
+	void OnInputJump();
+
 	UPROPERTY(EditAnywhere)
 	UAnimMontage* IdleAnimation;
 };

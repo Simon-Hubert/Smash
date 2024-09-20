@@ -91,4 +91,17 @@ private:
 	void OnInputMoveXFast(const FInputActionValue& InputActionValue);
 	
 #pragma endregion
+
+#pragma region Input Jump
+
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FInputJumpEvent);
+
+public:
+	FInputJumpEvent InputJumpEvent;
+
+private:
+	void BindInputJump(UEnhancedInputComponent* EnhancedInputComponent);
+	void OnInputJump();
+	
+#pragma endregion
 };
