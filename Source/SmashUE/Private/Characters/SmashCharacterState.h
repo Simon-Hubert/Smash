@@ -31,7 +31,7 @@ protected:
 
 	UPROPERTY()
 	TObjectPtr<USmashCharacterStateMachine> StateMachine;
-
+	
 	UPROPERTY()
 	const USmashCharacterSettings* CharacterSettings;
 };
