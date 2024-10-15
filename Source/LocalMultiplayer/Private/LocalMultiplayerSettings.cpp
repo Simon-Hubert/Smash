@@ -34,7 +34,7 @@ int ULocalMultiplayerSettings::GetNbKeyboardProfiles() const
 }
 
 int ULocalMultiplayerSettings::FindKeyboardProfileIndexFromKey(const FKey& Key,
-	ELocalMultiplayerInputMappingType MappingType)
+	ELocalMultiplayerInputMappingType MappingType) const
 {
 	for(int i=0; i < GetNbKeyboardProfiles(); i++)
 	{

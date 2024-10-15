@@ -43,7 +43,7 @@ public:
 
 	int GetNbKeyboardProfiles() const;
 
-	int FindKeyboardProfileIndexFromKey(const FKey& Key, ELocalMultiplayerInputMappingType MappingType);
+	int FindKeyboardProfileIndexFromKey(const FKey& Key, ELocalMultiplayerInputMappingType MappingType) const;
 
 	UPROPERTY(Config, EditAnywhere, Category="LocalMultiplayer")
 	FLocalMultiplayerProfileData GamepadProfileData;
