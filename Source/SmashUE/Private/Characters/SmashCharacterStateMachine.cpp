@@ -9,11 +9,11 @@
 
 void USmashCharacterStateMachine::Init(ASmashCharacter* InCharacter)
 {
-	Character = InCharacter;
+	Character = InCharacter;	
 	FindStates();
 	InitStates();
 
-	ChangeState(ESmashCharacterStateID::Idle);
+	ChangeState(ESmashCharacterStateID::Idle); 
 }
 
 void USmashCharacterStateMachine::Tick(float DeltaTime)
@@ -37,7 +37,7 @@ void USmashCharacterStateMachine::ChangeState(ESmashCharacterStateID NextStateID
 	{
 		CurrentState->StateExit(NextStateID);
 	}
-
+	
 	ESmashCharacterStateID PreviousStateID = CurrentStateID;
 	CurrentStateID = NextStateID;
 	CurrentState = NextState;
