@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "InputActionValue.h"
+#include "Camera/CameraFollowTarget.h"
 #include "GameFramework/Character.h"
 #include "SmashCharacter.generated.h"
 
@@ -13,7 +14,7 @@ class USmashCharacterInputData;
 class USmashCharacterStateMachine;
 
 UCLASS()
-class SMASHUE_API ASmashCharacter : public ACharacter
+class SMASHUE_API ASmashCharacter : public ACharacter, public ICameraFollowTarget
 {
 	GENERATED_BODY()
 	
@@ -102,6 +103,13 @@ public:
 private:
 	void BindInputJump(UEnhancedInputComponent* EnhancedInputComponent);
 	void OnInputJump();
-	
+#pragma endregion
+
+
+#pragma region CameraFollowTarget
+public:
+	virtual FVector GetFollowPosition() override;
+	virtual bool IsFollowable() override;
+
 #pragma endregion
 };
